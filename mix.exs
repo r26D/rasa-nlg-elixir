@@ -1,4 +1,4 @@
-defmodule RasaSdk.Mixfile do
+defmodule RasaNLG.Mixfile do
   use Mix.Project
 
   def project do
