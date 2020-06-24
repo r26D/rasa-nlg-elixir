@@ -27,7 +27,7 @@ by adding `rasa_nlg` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [ {:rasa_sdk, git: "https://github.com/r26D/rasa-nlg-elixir.git"}]
+  [ {:rasa_nlg, git: "https://github.com/r26D/rasa-nlg-elixir.git"}]
 end
 ```
 
