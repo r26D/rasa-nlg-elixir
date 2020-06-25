@@ -14,7 +14,7 @@ defmodule RasaNLG.Responses.Registry do
     modules
     |> Enum.each(fn module ->
       if RasaNLG.Responses.Response in (module.module_info(:attributes)[:behaviour] || []) do
-       # IO.puts("Registering #{key_name(prefix, module.name())}")
+        IO.puts("Registering #{key_name(prefix, module.name())}")
         :ets.insert(responses_table, {key_name(prefix, module.name()), module})
       end
     end)
@@ -40,13 +40,13 @@ defmodule RasaNLG.Responses.Registry do
   end
 
   def list_keys([prefix: prefix]) do
-    key_stream(get_responses_table)
+    key_stream(get_responses_table())
     |> Enum.map(&({String.replace(&1, "#{prefix}/",""), %{text: "Place Holder Text"}}))
     |> Enum.into(%{})
 
   end
   def list_keys([]) do
-    key_stream(get_responses_table)
+    key_stream(get_responses_table())
     |> Enum.map(&({&1, %{text: "Place Holder Text"}}))
     |> Enum.into(%{})
   end
