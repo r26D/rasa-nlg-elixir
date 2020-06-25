@@ -3,7 +3,8 @@ defmodule RasaNLG.Responses.Plug do
   alias RasaNLG.Responses.{Context, Registry}
   alias RasaNLG.Model.{
     Response,
-    ResponseOk
+    ResponseOk,
+    Request
     }
   require Logger
 
@@ -13,12 +14,15 @@ defmodule RasaNLG.Responses.Plug do
   end
 
   def call(%Plug.Conn{body_params: body_params} = conn, opts) do
-    IO.inspect(body_params)
+
     context =
       body_params
-      |> Poison.Decode.decode(as: %RasaNLG.Model.Request{})
+      |> Poison.Decode.decode(as: %Request{})
       |> Context.new()
 
+      IO.puts("<<<< Slots >>>>")
+      IO.inspect(context |> Context.current_slot_values)
+      IO.puts(" <<<<       >>>>>")
     try do
       send_response(conn, Registry.execute(context, opts))
     rescue
