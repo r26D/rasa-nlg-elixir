@@ -1,5 +1,8 @@
 defmodule RasaNLG.Responses.Registry do
   alias RasaNLG.Responses.Context
+  defp get_responses_table() do
+    Application.get_env(:rasa_response, :responses_table, :rasa_responses)
+  end
 
   def register_responses( modules) when is_list(modules) do
     register_responses({nil, modules})
@@ -36,7 +39,28 @@ defmodule RasaNLG.Responses.Registry do
     end
   end
 
-  defp get_responses_table() do
-    Application.get_env(:rasa_response, :responses_table, :rasa_responses)
+  def list_keys([prefix: prefix]) do
+    key_stream(get_responses_table)
+    |> Enum.map(&({String.replace(&1, "#{prefix}/",""), %{text: "Place Holder Text"}}))
+    |> Enum.into(%{})
+
   end
+  def list_keys([]) do
+    key_stream(get_responses_table)
+    |> Enum.map(&({&1, %{text: "Place Holder Text"}}))
+    |> Enum.into(%{})
+  end
+
+
+  @doc """
+    https://stackoverflow.com/a/43842843
+  """
+  defp key_stream(table_name) do
+    Stream.resource(
+      fn -> :ets.first(table_name) end,
+      fn :"$end_of_table" -> {:halt, nil}
+        previous_key -> {[previous_key], :ets.next(table_name, previous_key)} end,
+      fn _ -> :ok end)
+  end
+
 end

@@ -13,6 +13,7 @@ defmodule RasaNLG.Responses.Plug do
   end
 
   def call(%Plug.Conn{body_params: body_params} = conn, opts) do
+    IO.inspect(body_params)
     context =
       body_params
       |> Poison.Decode.decode(as: %RasaNLG.Model.Request{})
