@@ -167,7 +167,16 @@ defmodule RasaNLG.Responses.Context do
       response:  response,
     })
   end
-
+  def set_response(%__MODULE__{} = context, %Response{} = response, nil) do
+    Map.replace!(context, :response, %ResponseOk{
+      response:  response,
+    })
+  end
+  def set_response(%__MODULE__{} = context, %Response{} = response, personality) do
+    Map.replace!(context, :response, %ResponseOk{
+      response:  response |> personality.personalize(context),
+    })
+  end
 
   def set_error(%__MODULE__{} = context, response_name, error) do
     Map.replace!(context, :error, %ResponseRejected{response_name: response_name, error: error})
