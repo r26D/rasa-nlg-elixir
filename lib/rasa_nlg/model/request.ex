@@ -27,9 +27,9 @@ defimpl Poison.Decoder, for: RasaNLG.Model.Request do
   import RasaNLG.Deserializer
   def decode(value, options) do
     value
-    |> deserialize(:arguments, :list, Argument, options)
-    |> deserialize(:channel, :struct, Channel, options)
-    |> deserialize(:tracker, :struct, Tracker, options)
+    |> deserialize(:channel, :struct, RasaNLG.Model.Channel, options)
+    |> deserialize(:tracker, :struct, RasaNLG.Model.Tracker, options)
   end
 end
 
+#   |> deserialize(:arguments, :list, RasaNLG.Model.Argument, options)

@@ -31,9 +31,9 @@ defimpl Poison.Decoder, for: RasaNLG.Model.Response do
   import RasaNLG.Deserializer
   def decode(value, options) do
     value
-    |> deserialize(:buttons, :list, Button, options)
-    |> deserialize(:elements, :list, Element, options)
-    |> deserialize(:attachments, :list, Attachment, options)
+    |> deserialize(:buttons, :list, RasaNLG.Model.Button, options)
+    |> deserialize(:elements, :list, RasaNLG.Model.Element, options)
+    |> deserialize(:attachments, :list, RasaNLG.Model.Attachment, options)
   end
 end
 

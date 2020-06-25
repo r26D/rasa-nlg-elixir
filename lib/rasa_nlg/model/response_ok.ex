@@ -18,7 +18,7 @@ defimpl Poison.Decoder, for: ResponseOk do
   import RasaNLG.Deserializer
   def decode(value, options) do
     value
-    |> deserialize(:Response, :struct, Response, options)
+    |> deserialize(:Response, :struct, RasaNLG.Model.Response, options)
   end
 end
 

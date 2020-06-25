@@ -9,8 +9,8 @@ defmodule RasaNLG.Model.Argument do
   ]
 
   @type t :: %__MODULE__{
-    payload: String.t | nil
-  }
+               payload: String.t | nil
+             }
 end
 
 defimpl Poison.Decoder, for: RasaNLG.Model.Argument do
