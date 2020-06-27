@@ -14,6 +14,7 @@ defmodule RasaNLG.Responses.Response do
         "#{__MODULE__}"|>String.split(".")|>Enum.reverse|>Enum.at(0)|>Macro.underscore()
       end
       def preprocess(%Context{} = context), do: context
+      def postprocess(%Context{} = context), do: context
       @doc """
           This is an overrideable method to make a response.
       """
@@ -22,7 +23,7 @@ defmodule RasaNLG.Responses.Response do
          nil -> context
          value ->
            context
-           |> set_response(%ResponseModel{text: value}, personality)
+           |> set_response(%ResponseModel{text: value}, personality())
        end
 
       end
@@ -32,12 +33,14 @@ defmodule RasaNLG.Responses.Response do
         context
         |> preprocess()
         |> respond()
+        |> postprocess()
       end
       @doc """
         This is a text response. You can override this method to make a simple response.
       """
       def simple_text(), do: nil
       defoverridable preprocess: 1,
+                     postprocess: 1,
                      simple_text: 0,
                      name: 0,
                      personality: 0,

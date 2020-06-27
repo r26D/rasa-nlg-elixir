@@ -22,7 +22,6 @@ defmodule RasaNLG.Responses.Plug do
 
       IO.puts("<<<< Slots >>>>")
       IO.inspect(context |> Context.current_slot_values)
-      IO.puts(" <<<<       >>>>>")
     try do
       send_response(conn, Registry.execute(context, opts))
     rescue
