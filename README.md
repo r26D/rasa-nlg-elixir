@@ -1,3 +1,12 @@
+# NO LONGER DEVELOPED
+
+This code got merged into the [rasa-sdk-elixir](https://github.com/whitedr/rasa-sdk-elixir) project
+
+
+
+
+
+
 # RasaNLG
 
 This allows you to serve NLG (Natural Language Generation) requests for the [Rasa Chatbot](https://rasa.com) in Elixir
